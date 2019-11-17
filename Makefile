@@ -40,7 +40,7 @@ fclean : clean
 
 re : fclean all
 
-git:
+git: fclean
 	git add *
 	git commit -m "add"
 	git push
