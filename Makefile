@@ -41,8 +41,10 @@ fclean : clean
 re : fclean all
 
 git: fclean
-	git add *
-	git commit -m "add"
-	git push
+	@git add *
+	@git commit -m "add"
+	@git push
+	@echo "\033[32m Git push was successful ✔ ✔ ✔ ✔\033[0m"
+
 
 .PHONY : all clean fclean re
