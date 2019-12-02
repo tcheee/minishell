@@ -20,6 +20,9 @@
 # define CYAN_TEXT		"\033[36;1m"
 # define WHITE_TEXT		"\033[37;1m"
 
+char **env;
+
 int		ft_analyse_input(char *buff);
+int		ft_create_env(char **envp, char **env);
 
 #endif

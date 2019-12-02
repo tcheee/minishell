@@ -37,22 +37,31 @@ void ft_get_input(char **buff)
 	}
 }
 
-int main(void)
+int main(int ac, char **av, char **envp)
 {
 	char *buff;
 
-	buff = NULL;
-	while (!buff || strcmp(buff, QUIT_SHELL) != 0)
+
+	if (ac == 1 && av[0] != NULL)
 	{
-		if (!(buff = malloc(sizeof(char *) * SIZE))) // to free
-			return (-1);
-		buff[0] = '\0';
-		ft_putstr("$> ");
-		ft_get_input(&buff);
-		ft_putstr(buff);
-		ft_analyse_input(buff);
-		free(buff);
+		buff = NULL;
+		ft_create_env(envp, env);
+		while (!buff || strcmp(buff, QUIT_SHELL) != 0)
+		{
+			if (!(buff = malloc(sizeof(char *) * SIZE))) // to free
+				return (-1);
+			buff[0] = '\0';
+			ft_putstr("$> ");
+			ft_get_input(&buff);
+			ft_putstr(buff);
+			ft_analyse_input(buff);
+			free(buff);
+		}
+		ft_putstr("See you!");
 	}
-	ft_putstr("See you!");
+	else 
+	{
+		ft_putstr("Error: no arguments. Try again.");
+	}
 	return (0);
 }
