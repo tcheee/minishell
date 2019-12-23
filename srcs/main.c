@@ -39,29 +39,29 @@ void ft_get_input(char **buff)
 
 int main(int ac, char **av, char **envp)
 {
-	char *buff;
-
+	char *buff; // put g_env as a variable not a global one
 
 	if (ac == 1 && av[0] != NULL)
 	{
 		buff = NULL;
-		ft_create_env(envp, env);
-		while (!buff || strcmp(buff, QUIT_SHELL) != 0)
+		ft_create_env(envp);
+		while (1)
 		{
 			if (!(buff = malloc(sizeof(char *) * SIZE))) // to free
 				return (-1);
 			buff[0] = '\0';
 			ft_putstr("$> ");
 			ft_get_input(&buff);
-			ft_putstr(buff);
-			ft_analyse_input(buff);
+			if (ft_analyse_input(buff) == 1)
+			{
+				free(buff);
+				ft_putstr("See you!\n");
+				return(0);
+			}
 			free(buff);
 		}
-		ft_putstr("See you!");
 	}
 	else 
-	{
-		ft_putstr("Error: no arguments. Try again.");
-	}
+		ft_putstr("Error: remove arguments to launch minishell. Try again.");
 	return (0);
 }

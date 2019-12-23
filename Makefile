@@ -8,7 +8,8 @@ CFLAGS =-Wall -Wextra -Werror
 
 SRCS =	 	srcs/main.c\
 			srcs/ft_analyze_input.c\
-			srcs/ft_create_env.c
+			srcs/ft_create_env.c\
+			srcs/ft_builtin.c\
 
 INCS = minishell.h
 

@@ -5,6 +5,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
+#include <signal.h>
 
 # define SIZE 4
 # define QUIT_SHELL "exit\n"
@@ -20,9 +21,20 @@
 # define CYAN_TEXT		"\033[36;1m"
 # define WHITE_TEXT		"\033[37;1m"
 
-char **env;
+/*typedef struct st_list {
+	char *elem;
+	struct st_list *next;
+}				list;
+
+list *g_env;*/
+
+char **g_env;
 
 int		ft_analyse_input(char *buff);
-int		ft_create_env(char **envp, char **env);
+int		ft_create_env(char **envp);
+int		ft_env(void);
+int		ft_echo(char *word, char *buff);
+int		ft_chdir(char **words);
+int		ft_read_env(char *str, char **tmp);
 
 #endif
