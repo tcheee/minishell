@@ -1,38 +1,5 @@
 #include "../includes/minishell.h"
 
-// To 
-/*static int	create_new_node(list **tmp)
-  {
-  if (!(*tmp = (list*)malloc(sizeof(list))))
-  return (-1);
-  (*tmp)->elem = NULL;
-  (*tmp)->next = NULL;
-  return (0);
-  }*/
-
-
-/*int			ft_create_env(char **envp)
-  {
-  int i;
-  list *tmp;
-
-  g_env = NULL;
-  i = 0;
-  tmp = g_env;
-  while (envp[i] != NULL)
-  {
-  if (create_new_node(&tmp) == -1)
-  return (-1);
-  if (!(tmp->elem = (char*)malloc(sizeof(char*) * ft_strlen(envp[i])))) // to free
-  return (-1);
-  ft_memmove(tmp->elem, envp[i], ft_strlen(envp[i]));
-  ft_printf("%s\n", tmp->elem);
-  i++;
-  tmp = tmp->next;
-  }
-  return (0);
-  }*/
-
 int				ft_env(void)
 {
 	int i;
@@ -96,7 +63,6 @@ int				ft_create_env(char **envp)
 		if(!(g_env[i] = (char*)malloc(sizeof(char*) * (ft_strlen(envp[i]) + 1)))) // to free
 			return (-1);
 		ft_memcpy(g_env[i], envp[i], ft_strlen(envp[i]) + 1);
-		//ft_printf("%s\n", g_env[i]);
 		i++;
 	}
 	g_env[i] = NULL;

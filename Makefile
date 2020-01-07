@@ -10,6 +10,7 @@ SRCS =	 	srcs/main.c\
 			srcs/ft_analyze_input.c\
 			srcs/ft_create_env.c\
 			srcs/ft_builtin.c\
+			srcs/ft_manage_env.c\
 
 INCS = minishell.h
 

@@ -7,13 +7,23 @@ static int		check_builtin(char *word, char **words, char *buff)
 		if (ft_env() == 0)
 			return (0);
 	}
+	else if (ft_strcmp(word, "setenv") == 0) // error si name contient un "="
+	{
+		if (ft_setenv(words) == 0)
+			return (0);
+	}
+	else if (ft_strcmp(word, "unsetenv") == 0)
+	{
+		if (ft_unsetenv(words) == 0)
+			return (0);
+	}
 	else if (ft_strcmp (word, "cd") == 0)
 	{
 		if (ft_chdir(words) == 0)
 			return (0);
 	}
 	else if (ft_strcmp(word, "echo") == 0)
-		if (ft_echo(word, buff) == 0)
+		if (ft_echo(word, buff, words) == 0)
 			return (0);
 	return (-1);
 }
@@ -34,7 +44,6 @@ static int		exec_command(char *word, char **words, char *buff)
 		if (execve(command, words, g_env) == -1)
 		{
 			ft_printf("%s: command not found\n", word);
-			//kill(pid, SIGTERM); // verif en cas d'erreur command not found que fonctionne bien
 			exit(-1);
 		};
 	}
@@ -56,23 +65,23 @@ static int		exec_command(char *word, char **words, char *buff)
 static int		check_quote(char *buff)
 {
 	int i;
-	int j;
 	int k;
+	int c;
 
+	c = 0;
 	i = 0;
-	j = 0;
 	k = 0;
 	while (buff[i] != '\0')
 	{
-		//if (buff[i] == ''') // how?
-		//	j++;
-		if (buff[i] == '"')
+		if (c == 0 && (buff[i] == 39 || buff[i] == '"'))
+			c = buff[i];
+		if (buff[i] == c)
 			k++;
 		i++;
 	}
-	if ((k > 0 && k % 2 != 0) || (j > 0 && j % 2 != 0))
+	if ((k > 0 && k % 2 != 0))
 	{
-		ft_putstr("Error: problem with the quotes. Try again.");
+		ft_putstr("Error: problem with the quotes. Try again.\n");
 		return (-1);
 	}
 	return (0);
