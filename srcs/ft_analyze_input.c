@@ -28,6 +28,38 @@ static int		check_builtin(char *word, char **words, char *buff)
 	return (-1);
 }
 
+static int		set_path(char *word, char **command) // need to free ce path
+{
+	char *tmp;
+	char *com;
+	char *temp;
+	char **split;
+	int i;
+
+	i = 0;
+	if (!(tmp = malloc(sizeof(char*) * 2048)))
+		return (-1);
+	if (ft_read_env("PATH", &tmp) == -1)
+		return (-1);
+	split = ft_strsplit(tmp, ':'); // to free
+	free(tmp);
+	com = ft_strcat("/", word);
+	while (split[i] != NULL)
+	{
+		temp = ft_strcat(split[i], com);
+		if (access(temp, F_OK) == 0)
+		{
+			*command = temp;
+			free(com);
+			return (0);
+		}
+		free(temp);
+		i++;
+	}
+	free(com);
+	return (-1);
+}
+
 
 static int		exec_command(char *word, char **words, char *buff)
 {
@@ -35,9 +67,11 @@ static int		exec_command(char *word, char **words, char *buff)
 	pid_t	wpid;
 	int		status;
 	char *command;
+
+	command = NULL;
 	if (check_builtin(word, words, buff) == 0)
 		return (0);
-	command = ft_strcat("/bin/", word); // need to set up the path
+	set_path(word, &command);
 	pid = fork();
 	if (pid == 0)
 	{
@@ -58,7 +92,7 @@ static int		exec_command(char *word, char **words, char *buff)
 		if (WIFEXITED(status) || WIFSIGNALED(status))
 			return (0);
 	}
-	//free(PATH);
+	free(command); // enough?
 	return (0);
 }
 
