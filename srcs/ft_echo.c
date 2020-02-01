@@ -14,7 +14,7 @@ static int		ft_capitalize(char **str)
 	return (0);
 }
 
-int				ft_echo(char *word, char *buff, char **words)
+int				ft_echo(char *word, char *buff, char **words, char ***env)
 {
 	int j;
 	char *tmp;
@@ -26,7 +26,7 @@ int				ft_echo(char *word, char *buff, char **words)
 		if (!(tmp = malloc(sizeof(char*) * 2048)))
 			return (-1);
 		ft_capitalize(&words[1]);
-		if (ft_read_env(&words[1][1], &tmp) == -1)
+		if (ft_read_env(&words[1][1], &tmp, env) == -1)
 			ft_putstr("\n");
 		else
 			ft_printf("%s\n", tmp);
@@ -65,5 +65,3 @@ int				ft_echo(char *word, char *buff, char **words)
 	}
 	return (0);
 }
-
-

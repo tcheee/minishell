@@ -17,14 +17,16 @@ static int		check_dir(char **words, int i)
 	return (0);
 }
 
-int				ft_chdir(char **words) // voir si plus propre pour tmp?
+int				ft_chdir(char **words, char ***env) // voir si plus propre pour tmp?
 {
 	char *tmp;
+	char *temp;
 	int i;
 	int b;
 
 	b = 0;
 	i = 0;
+	temp = NULL;
 	while (words[i] != NULL)
 		i++;
 	if (check_dir(words, i) == -1)
@@ -37,11 +39,12 @@ int				ft_chdir(char **words) // voir si plus propre pour tmp?
 	{
 		if (!(tmp = malloc(sizeof(char*) * 2048)))
 			return (-1);
-		if (ft_read_env("HOME", &tmp) == -1)
+		if (ft_read_env("HOME", &tmp, env) == -1)
 			return (-1);
 		if (b != 1 && ft_strlen(words[1]) > 1)
-			tmp = ft_strcat(tmp, &words[1][1]);
+			temp = ft_strcat(tmp, &words[1][1]);
 		chdir(tmp);
+		free(temp);
 		free(tmp);
 	}
 	else

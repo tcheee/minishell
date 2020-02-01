@@ -37,22 +37,28 @@ void ft_get_input(char **buff)
 	}
 }
 
+//clean out
+//
+
 int main(int ac, char **av, char **envp)
 {
-	char *buff; // put g_env as a variable not a global one
+	char *buff; // put g_env as a variable not a global oe
+	char **g_env;
 
+	g_env = NULL;
 	if (ac == 1 && av[0] != NULL)
 	{
 		buff = NULL;
-		ft_create_env(envp);
+		ft_create_env(envp, &g_env);
 		while (1)
 		{
 			if (!(buff = malloc(sizeof(char *) * SIZE))) // to free
 				return (-1);
 			buff[0] = '\0';
+			//system ("leaks minishell"); // to check leaks
 			ft_putstr("$> ");
 			ft_get_input(&buff);
-			if (ft_analyse_input(buff) == 1)
+			if (ft_analyse_input(buff, &g_env) == 1) // clean out
 			{
 				free(buff);
 				ft_putstr("See you!\n");

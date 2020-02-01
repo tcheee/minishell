@@ -23,15 +23,15 @@
 # define CYAN_TEXT		"\033[36;1m"
 # define WHITE_TEXT		"\033[37;1m"
 
-char **g_env;
+//char **g_env;
 
-int		ft_analyse_input(char *buff);
-int		ft_create_env(char **envp);
-int		ft_env(void);
-int		ft_echo(char *word, char *buff, char **words);
-int		ft_chdir(char **words);
-int		ft_read_env(char *str, char **tmp);
-int		ft_setenv(char **words);
-int		ft_unsetenv(char **words);
+int		ft_analyse_input(char *buff, char ***env);
+int		ft_create_env(char **envp, char ***env);
+int		ft_env(char ***env);
+int		ft_echo(char *word, char *buff, char **words, char ***env);
+int		ft_chdir(char **words, char ***env);
+int		ft_read_env(char *str, char **tmp, char ***env);
+int		ft_setenv(char **words, char ***env);
+int		ft_unsetenv(char **words, char ***env);
 
 #endif
