@@ -2,13 +2,16 @@
 
 static int		ft_existing_env(char *str, char ***env)
 {
+	// bug here
 	char var[500];
 	int k;
 	int j;
 
 	k = 0;
+	ft_putstr("bug?\n");
 	while((*env)[k] != NULL)
 	{
+		ft_putstr("loop\n");
 		j = 0;
 		while ((*env)[k][j] != '\0' && (*env)[k][j] != '=')
 		{
@@ -18,9 +21,14 @@ static int		ft_existing_env(char *str, char ***env)
 		var[j] = '\0';
 		j++;
 		if (ft_strcmp(str, var) == 0)
+		{
+			var[0] = '\0';
 			return (1);
+		}
 		k++;
 	}
+	var[0] = '\0';
+	ft_putstr("out of loop\n");
 	return (0);
 }
 
@@ -47,6 +55,7 @@ static int		ft_check_format(char **words, int b)
 
 int		ft_modify_env(char ***env, char *var, char *value)
 {
+	ft_printf("ici1\n");
 	char **tmp;
 	char *new_env;
 	int i;
@@ -58,6 +67,7 @@ int		ft_modify_env(char ***env, char *var, char *value)
 	j = 0;
 	if (!(new_env = (char*)malloc(sizeof(char*) * (ft_strlen(var) + ft_strlen(value) + 2)))) // to free
 		return (-1);
+	ft_printf("ici2\n");
 	while (var[j] != '\0')
 	{
 		new_env[j] = var[j];
@@ -73,6 +83,7 @@ int		ft_modify_env(char ***env, char *var, char *value)
 	}
 	new_env[j] = '\0';
 
+	ft_printf("ici3\n");	
 	tmp = NULL;
 	i = 0;
 	while((*env)[i] != NULL)
@@ -98,6 +109,7 @@ int		ft_modify_env(char ***env, char *var, char *value)
 	}
 	free((*env)[i]);
 	free(*env);
+	ft_printf("ici4\n");	
 
 	if(!(tmp[i] = (char*)malloc(sizeof(char*) * ((ft_strlen(new_env) + 1))))) // to free
 		return (-1);
@@ -112,13 +124,14 @@ int		ft_modify_env(char ***env, char *var, char *value)
 
 int		ft_setenv(char **words, char ***env)
 {
-	printf("enter here\n");
+	ft_putstr("enter ici\n");
 	if (ft_check_format(words, 1) == -1)
 		return (0);
 	if (ft_existing_env(words[1], env) == 1)
 		ft_putstr("This variable already exist.\n");
 	else
 	{
+		ft_putstr("go to modify!\n");
 		printf("word1: %s et word2: %s\n", words[1], words[2]);
 		ft_modify_env(env, words[1], words[2]);
 	}
