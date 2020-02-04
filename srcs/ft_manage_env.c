@@ -1,5 +1,6 @@
 #include "../includes/minishell.h"
 
+
 static int		ft_existing_env(char *str, char ***env)
 {
 	// bug here
@@ -12,7 +13,6 @@ static int		ft_existing_env(char *str, char ***env)
 	k = 0;
 	while((*env)[k] != NULL)
 	{
-		ft_putstr("loop1\n");
 		j = 0;
 		while ((*env)[k][j] != '\0' && (*env)[k][j] != '=')
 		{
@@ -26,11 +26,9 @@ static int		ft_existing_env(char *str, char ***env)
 			free(var);
 			return (1);
 		}
-		ft_printf("%d\n", k);
 		k++;
 	}
 	free(var);
-	ft_putstr("out of loop\n");
 	return (0);
 }
 
@@ -55,72 +53,46 @@ static int		ft_check_format(char **words, int b)
 	return (0);
 }
 
-int		ft_modify_env(char ***env, char *var, char *value)
+static char	**realloc_env(char ***env, int n, char *tmp)
 {
-	ft_printf("ici1\n");
-	char **tmp;
-	char *new_env;
-	int i;
-	int j;
-	int k;
+	char	**new;
+	int		i;
 
+	ft_printf("%s\n", tmp);
+	if (!(new = (char**)malloc(sizeof(char**) * (n + 1)))) // to free
+		return (NULL);
 	i = 0;
-	k = 0;
-	j = 0;
-	if (!(new_env = (char*)malloc(sizeof(char*) * (ft_strlen(var) + ft_strlen(value) + 2)))) // to free
-		return (-1);
-	ft_printf("ici2\n");
-	while (var[j] != '\0')
+	while ((*env)[i] && i < n)
 	{
-		new_env[j] = var[j];
-		j++;
-	}
-	new_env[j] = '=';
-	j++;
-	while (value[k] != '\0')
-	{
-		new_env[j] = value[k];
-		j++;
-		k++;
-	}
-	new_env[j] = '\0';
-
-	ft_printf("ici3\n");	
-	tmp = NULL;
-	i = 0;
-	while((*env)[i] != NULL)
-		i++;
-	
-	if (!(tmp = (char**)malloc(sizeof(char**) * (i + 1)))) // to free
-	{
-		ft_putstr("probleme malloc\n");
-		return (-1);
-	}
-	i = 0;
-	while ((*env)[i] != NULL)
-	{
-		ft_printf("1) index: %d and content %s\n", i, (*env)[i]);
-		if(!(tmp[i] = (char*)malloc(sizeof(char*) * (ft_strlen((*env)[i]) + 1)))) // to free
-		{
-			ft_putstr("probleme malloc\n");
-			return (-1);
-		}
-		memcpy(tmp[i], (*env)[i], ft_strlen((*env)[i]) + 1);
+		ft_printf("%d: %s\n", i, (*env)[i]);
+		new[i] = ft_strdup((*env)[i]);
 		free((*env)[i]);
 		i++;
 	}
-	free((*env)[i]);
 	free(*env);
-	ft_printf("ici4\n");	
-
-	if(!(tmp[i] = (char*)malloc(sizeof(char*) * ((ft_strlen(new_env) + 1))))) // to free
-		return (-1);
-	ft_memcpy(tmp[i], new_env, ft_strlen(new_env) + 1);
-	free(new_env);
+	new[i] = ft_strdup(tmp);
 	i++;
-	tmp[i] = NULL;
-	*env = tmp;
+	new[i] = NULL;
+	return (new);
+}
 
+int		ft_modify_env(char ***env, char *var, char *value)
+{
+	ft_printf("ici1\n");
+	char	*tmp1;
+	char	*tmp2;
+	int		n;
+
+	
+	tmp1 = ft_strcat(var, "=");
+	tmp2 = ft_strcat(tmp1, value);
+	n = 0;
+	while ((*env)[n])
+		n++;
+	if ((*env = realloc_env(env, n + 1, tmp2)) == NULL)
+		return (-1);
+	free(tmp1);
+	free(tmp2);
 	return (0);
 }
 
@@ -133,7 +105,6 @@ int		ft_setenv(char **words, char ***env)
 		ft_putstr("This variable already exist.\n");
 	else
 	{
-		ft_putstr("go to modify!\n");
 		printf("word1: %s et word2: %s\n", words[1], words[2]);
 		ft_modify_env(env, words[1], words[2]);
 	}
