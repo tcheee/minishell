@@ -1,17 +1,17 @@
 #include "../includes/minishell.h"
 
-static int		ft_capitalize(char **str)
+char	*ft_capitalize(char *str)
 {
 	int i;
 
 	i = 0;
-	while ((*str)[i] != '\0')
+	while ((str)[i] != '\0')
 	{
-		if ((*str)[i] >= 97 && (*str)[i] <= 122)
-			(*str)[i] = (*str)[i] - 32;
+		if ((str)[i] >= 97 && (str)[i] <= 122)
+			(str)[i] = (str)[i] - 32;
 		i++;
 	}
-	return (0);
+	return (str);
 }
 
 int				ft_echo(char *word, char *buff, char **words, char ***env)
@@ -25,7 +25,6 @@ int				ft_echo(char *word, char *buff, char **words, char ***env)
 	{
 		if (!(tmp = malloc(sizeof(char*) * 2048)))
 			return (-1);
-		ft_capitalize(&words[1]);
 		if (ft_read_env(&words[1][1], &tmp, env) == -1)
 			ft_putstr("\n");
 		else

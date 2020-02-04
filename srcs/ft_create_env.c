@@ -7,7 +7,7 @@ int				ft_env(char ***env)
 	i = 0;
 	while ((*env)[i] != NULL)
 	{
-		ft_printf("%s\n", (*env)[i]);
+		ft_printf("%d: %s\n", i, (*env)[i]);
 		i++;
 	}
 	return (0);
@@ -16,12 +16,14 @@ int				ft_env(char ***env)
 
 int			ft_read_env(char *str, char **tmp, char ***env)
 {
-	char var[500];
+	char *var;
 	int k;
 	int j;
 	int n;
 
 	k = 0;
+	if (!(var = (char*)malloc(sizeof(char*) * (2000)))) // to free
+		return (-1);
 	while((*env)[k] != NULL)
 	{
 		j = 0;
@@ -33,7 +35,7 @@ int			ft_read_env(char *str, char **tmp, char ***env)
 		}
 		var[j] = '\0';
 		j++;
-		if (ft_strcmp(str, var) == 0)
+		if (ft_strcmp(ft_capitalize(str), ft_capitalize(var)) == 0)
 		{
 			while ((*env)[k][j] != '\0')
 			{
@@ -42,10 +44,12 @@ int			ft_read_env(char *str, char **tmp, char ***env)
 				n++;
 			}
 			(*tmp)[n] = '\0';
+			free(var);
 			return (0);
 		}
 		k++;
 	}
+	free(var);
 	return (-1);
 }
 
@@ -56,6 +60,7 @@ int				ft_create_env(char **envp, char ***g_env)
 	i = 0;
 	while (envp[i] != NULL)
 		i++;
+	ft_printf("size of env is: %d\n", i);
 	if (!(*g_env = (char**)malloc(sizeof(char**) * (i + 1)))) // to free
 		return (-1);
 	i = 0;

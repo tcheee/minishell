@@ -3,15 +3,16 @@
 static int		ft_existing_env(char *str, char ***env)
 {
 	// bug here
-	char var[500];
-	int k;
-	int j;
+	char	*var;
+	int		k;
+	int		j;
 
+	if (!(var = (char*)malloc(sizeof(char*) * (2000)))) // to free
+		return (-1);
 	k = 0;
-	ft_putstr("bug?\n");
 	while((*env)[k] != NULL)
 	{
-		ft_putstr("loop\n");
+		ft_putstr("loop1\n");
 		j = 0;
 		while ((*env)[k][j] != '\0' && (*env)[k][j] != '=')
 		{
@@ -22,12 +23,13 @@ static int		ft_existing_env(char *str, char ***env)
 		j++;
 		if (ft_strcmp(str, var) == 0)
 		{
-			var[0] = '\0';
+			free(var);
 			return (1);
 		}
+		ft_printf("%d\n", k);
 		k++;
 	}
-	var[0] = '\0';
+	free(var);
 	ft_putstr("out of loop\n");
 	return (0);
 }
@@ -42,12 +44,12 @@ static int		ft_check_format(char **words, int b)
 		i++;
 	if (b == 1 && i != 3)
 	{
-		ft_putstr("Please use only two arguments: setenv VAR VALUE\n");
+		ft_putstr("Please use two arguments: setenv VAR VALUE\n");
 		return (-1);
 	}
 	else if (b == 0 && i != 2)
 	{
-		ft_putstr("Please use only two arguments: unsetenv VAR VALUE\n");
+		ft_putstr("Please use two arguments: unsetenv VAR VALUE\n");
 		return (-1);
 	}
 	return (0);

@@ -55,7 +55,6 @@ static int		set_path(char *word, char **command, char ***env) // need to free ce
 			free(com);
 			while (split[l] != NULL)
 			{
-				ft_printf("Here: %s\n", split[l]);
 				free(split[l]);
 				l++;
 			}
