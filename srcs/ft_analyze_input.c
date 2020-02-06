@@ -4,7 +4,7 @@ static int		check_builtin(char *word, char **words, char *buff, char ***env)
 {
 	if (ft_strcmp(word, "env") == 0)
 	{
-		if (ft_env(env) == 0)
+		if (ft_env(env, words) == 0)
 			return (0);
 	}
 	else if (ft_strcmp(word, "setenv") == 0) // error si name contient un "="

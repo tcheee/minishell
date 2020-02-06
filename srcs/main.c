@@ -42,7 +42,7 @@ void ft_get_input(char **buff)
 
 int main(int ac, char **av, char **envp)
 {
-	char *buff; // put g_env as a variable not a global oe
+	char *buff;
 	char **g_env;
 
 	g_env = NULL;
@@ -62,6 +62,7 @@ int main(int ac, char **av, char **envp)
 			{
 				free(buff);
 				ft_putstr("See you!\n");
+				ft_delete_env(&g_env);
 				return(0);
 			}
 			free(buff);

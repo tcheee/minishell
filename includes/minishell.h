@@ -27,12 +27,14 @@
 
 int		ft_analyse_input(char *buff, char ***env);
 int		ft_create_env(char **envp, char ***env);
-int		ft_env(char ***env);
+int		ft_env(char ***env, char **words);
 int		ft_echo(char *word, char *buff, char **words, char ***env);
 char	*ft_capitalize(char *str);
 int		ft_chdir(char **words, char ***env);
 int		ft_read_env(char *str, char **tmp, char ***env);
 int		ft_setenv(char **words, char ***env);
 int		ft_unsetenv(char **words, char ***env);
+int		ft_existing_env(char *str, char ***env);
+int		ft_delete_env(char ***env);
 
 #endif
