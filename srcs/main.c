@@ -6,7 +6,7 @@
 /*   By: tcherret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 18:45:39 by tcherret          #+#    #+#             */
-/*   Updated: 2020/02/08 19:32:52 by tcherret         ###   ########.fr       */
+/*   Updated: 2020/02/08 20:09:18 by tcherret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,13 @@ void ft_get_input(char **buff)
 	}
 }
 
-//clean out
-//
+static int	finish_minishell(char **buff, char ***env)
+{
+	free(*buff);
+	ft_putstr("See you!\n");
+	free_tab(env);
+	return (0);
+}
 
 int main(int ac, char **av, char **envp)
 {
@@ -74,12 +79,7 @@ int main(int ac, char **av, char **envp)
 			ft_putstr("$> ");
 			ft_get_input(&buff);
 			if (ft_analyse_input(buff, &g_env) == 1) // clean out
-			{
-				free(buff);
-				ft_putstr("See you!\n");
-				free_tab(&g_env);
-				return(0);
-			}
+				return (finish_minishell(&buff, &g_env));
 			free(buff);
 		}
 	}
