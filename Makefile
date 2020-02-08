@@ -12,6 +12,7 @@ SRCS =	 	srcs/main.c\
 			srcs/ft_manage_env.c\
 			srcs/ft_echo.c\
 			srcs/ft_cd.c\
+			srcs/ft_exec_command.c\
 
 INCS = minishell.h
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_create_env.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcherret <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/08 18:46:24 by tcherret          #+#    #+#             */
+/*   Updated: 2020/02/08 19:32:26 by tcherret         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 int				ft_env(char ***env, char **words)
@@ -113,7 +125,7 @@ int				ft_create_env(char **envp, char ***g_env)
 	return (0);
 }
 
-int				ft_delete_env(char ***env) // to free
+int				free_tab(char ***env) // to free
 {
 	int i;
 

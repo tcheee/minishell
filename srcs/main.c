@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcherret <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/08 18:45:39 by tcherret          #+#    #+#             */
+/*   Updated: 2020/02/08 19:32:52 by tcherret         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 void ft_mem_realloc(char **buff, int s, int i)
@@ -25,13 +37,12 @@ void ft_get_input(char **buff)
 
 	i = 0;
 	s = SIZE;
-	while ((*buff)[i] != '\n' && (*buff)[i] != EOF) // need to work with EOF
+	while ((*buff)[i - 1] != '\n' && (*buff)[i - 1] != EOF) // need to work with EOF
 	{
-		ft_printf("%d et buff: %s\n", i, *buff);
 		z = 0;
 		if ((z = read(0, buffer, SIZE)) == -1)
 			return;
-		i += z + 1;
+		i += z;
 		tmp = ft_strcat(*buff, buffer);
 		(tmp)[i] = '\0';
 		free(*buff);
@@ -50,6 +61,7 @@ int main(int ac, char **av, char **envp)
 	char **g_env;
 
 	g_env = NULL;
+	buff = NULL;
 	if (ac == 1 && av[0] != NULL)
 	{
 		ft_create_env(envp, &g_env);
@@ -65,7 +77,7 @@ int main(int ac, char **av, char **envp)
 			{
 				free(buff);
 				ft_putstr("See you!\n");
-				ft_delete_env(&g_env);
+				free_tab(&g_env);
 				return(0);
 			}
 			free(buff);
