@@ -6,7 +6,7 @@
 /*   By: tcherret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:07:06 by ayguillo          #+#    #+#             */
-/*   Updated: 2019/02/21 22:53:09 by tcherret         ###   ########.fr       */
+/*   Updated: 2020/02/08 17:47:39 by tcherret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ char		*ft_strcat(char *s1, const char *s2)
 		return (NULL);
 	i = 0;
 	j = 0;
-	while (s1[i] != '\0')
+	while (s1 != NULL && s1[i] != '\0')
 	{
 		tmp[i] = s1[i];
 		i++;
 	}
-	while (s2[j] != '\0')
+	while (s2 != NULL && s2[j] != '\0')
 	{
 		tmp[i + j] = s2[j];
 		j++;

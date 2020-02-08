@@ -58,12 +58,19 @@ static int		set_path(char *word, char **command, char ***env) // need to free ce
 				free(split[l]);
 				l++;
 			}
+			free(split[l]);
 			free(split);
 			return (0);
 		}
 		free(temp);
 		i++;
 	}
+	while (split[l] != NULL)
+	{
+		free(split[l]);
+		l++;
+	}
+	free(split);
 	free(com);
 	return (-1); // free split here
 }
@@ -99,7 +106,10 @@ static int		exec_command(char *word, char **words, char *buff, char ***env)
 	{
 		wpid = waitpid(pid, &status, WUNTRACED);
 		if (WIFEXITED(status) || WIFSIGNALED(status))
+		{
+			free(command);
 			return (0);
+		}
 	}
 	free(command); // enough?
 	return (0);

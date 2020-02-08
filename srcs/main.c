@@ -20,18 +20,22 @@ void ft_get_input(char **buff)
 	int z;
 	int s;
 	int i;
+	char *tmp;
 	char buffer[SIZE];
 
 	i = 0;
 	s = SIZE;
-	while ((*buff)[i - 1] != '\n' && (*buff)[i - 1] != EOF) // need to work with EOF
+	while ((*buff)[i] != '\n' && (*buff)[i] != EOF) // need to work with EOF
 	{
+		ft_printf("%d et buff: %s\n", i, *buff);
 		z = 0;
 		if ((z = read(0, buffer, SIZE)) == -1)
 			return;
-		i += z;
-		*buff = ft_strcat(*buff, buffer);
-		(*buff)[i] = '\0';
+		i += z + 1;
+		tmp = ft_strcat(*buff, buffer);
+		(tmp)[i] = '\0';
+		free(*buff);
+		*buff = tmp;
 		if (i >= s)
 			ft_mem_realloc(buff, s, i);
 	}
@@ -48,7 +52,6 @@ int main(int ac, char **av, char **envp)
 	g_env = NULL;
 	if (ac == 1 && av[0] != NULL)
 	{
-		buff = NULL;
 		ft_create_env(envp, &g_env);
 		while (1)
 		{
