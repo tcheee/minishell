@@ -45,7 +45,10 @@ static char	**realloc_env(char ***env, int n, char *tmp, int k)
 	while ((*env)[i] && (*env)[j] && i < n)
 	{
 		if (i == k)
+		{	
+			free((*env)[i]);
 			j++;
+		}
 		new[i] = (*env)[j];
 		i++;
 		j++;
@@ -56,6 +59,7 @@ static char	**realloc_env(char ***env, int n, char *tmp, int k)
 		i++;
 	}
 	new[i] = NULL;
+	free(*env);
 	return (new);
 }
 

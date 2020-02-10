@@ -75,11 +75,10 @@ int main(int ac, char **av, char **envp)
 			if (!(buff = malloc(sizeof(char *) * SIZE))) // to free
 				return (-1);
 			buff[0] = '\0';
-			//system ("leaks minishell"); // to check leaks
 			ft_putstr("$> ");
 			ft_get_input(&buff);
-			if (ft_analyse_input(buff, &g_env) == 1) // clean out
-				return (finish_minishell(&buff, &g_env));
+			/*if (ft_analyse_input(buff, &g_env) == 1) // clean out
+				return (finish_minishell(&buff, &g_env));*/
 			free(buff);
 		}
 	}

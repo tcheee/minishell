@@ -23,8 +23,6 @@
 # define CYAN_TEXT		"\033[36;1m"
 # define WHITE_TEXT		"\033[37;1m"
 
-//char **g_env;
-
 int		ft_analyse_input(char *buff, char ***env);
 int		exec_command(char*word, char **words, char *buff, char ***env);
 int		check_builtin(char *word, char **words, char *buff, char ***env);

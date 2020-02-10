@@ -32,7 +32,10 @@ static int		set_path(char *word, char **command, char ***env) // need to free ce
 	if (!(tmp = malloc(sizeof(char*) * 2048)))
 		return (-1);
 	if (ft_read_env("PATH", &tmp, env) == -1)
+	{
+		free(tmp);
 		return (-1);
+	}
 	split = ft_strsplit(tmp, ':'); // to free
 	free(tmp);
 	com = ft_strcat("/", word);
@@ -46,7 +49,7 @@ static int		set_path(char *word, char **command, char ***env) // need to free ce
 	}
 	free_tab(&split);
 	free(com);
-	return (-1); // free split here
+	return (-1);
 }
 
 static int		no_fork()

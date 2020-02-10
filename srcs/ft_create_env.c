@@ -40,7 +40,7 @@ int		ft_existing_env(char *str, char ***env)
 	int		k;
 	int		j;
 
-	if (!(var = (char*)malloc(sizeof(char*) * (2000)))) // to free
+	if (!(var = (char*)malloc(sizeof(char*) * (2048)))) // to free
 		return (-1);
 	k = 0;
 	while((*env)[k] != NULL)
@@ -125,7 +125,7 @@ int				ft_create_env(char **envp, char ***g_env)
 	return (0);
 }
 
-int				free_tab(char ***env) // to free
+int				free_tab(char ***env)
 {
 	int i;
 
