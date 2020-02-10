@@ -39,6 +39,7 @@ void ft_get_input(char **buff)
 	s = SIZE;
 	while ((*buff)[i - 1] != '\n' && (*buff)[i - 1] != EOF) // need to work with EOF
 	{
+		ft_putstr("here\n");
 		z = 0;
 		if ((z = read(0, buffer, SIZE)) == -1)
 			return;
@@ -77,6 +78,7 @@ int main(int ac, char **av, char **envp)
 			buff[0] = '\0';
 			ft_putstr("$> ");
 			ft_get_input(&buff);
+			ft_putstr("out\n");
 			/*if (ft_analyse_input(buff, &g_env) == 1) // clean out
 				return (finish_minishell(&buff, &g_env));*/
 			free(buff);
