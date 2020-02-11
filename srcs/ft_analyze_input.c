@@ -83,13 +83,6 @@ int				ft_analyse_input(char *buff, char ***env)
 		buff[i - 1] = '\0';
 	words = ft_strsplit(buff, ' '); // to free
 	exec_command(words[0], words, buff, env);
-	i = 0;
-	while (words[i] != NULL)
-	{
-		free(words[i]);
-		i++;
-	}
-	free(words[i]);
-	free(words);
+	free_tab(&words);
 	return (0);
 }

@@ -27,28 +27,28 @@ void ft_mem_realloc(char **buff, int s, int i)
 	free(tmp);
 }
 
-void ft_get_input(char **buff)
+void ft_get_input(char **buff) // find a way to read size by size
 {
-	int z;
 	int s;
 	int i;
-	char *tmp;
-	char buffer[SIZE];
+	char l;
 
 	i = 0;
 	s = SIZE;
-	while ((*buff)[i - 1] != '\n' && (*buff)[i - 1] != EOF) // need to work with EOF
+	while (42)
 	{
-		ft_putstr("here\n");
-		z = 0;
-		if ((z = read(0, buffer, SIZE)) == -1)
-			return;
-		i += z;
-		tmp = ft_strcat(*buff, buffer);
-		(tmp)[i] = '\0';
-		free(*buff);
-		*buff = tmp;
-		if (i >= s)
+		if (read(0, &l, 1) == -1)
+			return ;
+		if (l == '\n' || l == EOF)
+		{
+			(*buff)[i] = l;
+			(*buff)[i + 1] = '\0';
+			return ;
+		}
+		else 
+			(*buff)[i] = l;
+		i++;
+		if (i >= SIZE)
 			ft_mem_realloc(buff, s, i);
 	}
 }
@@ -78,9 +78,8 @@ int main(int ac, char **av, char **envp)
 			buff[0] = '\0';
 			ft_putstr("$> ");
 			ft_get_input(&buff);
-			ft_putstr("out\n");
-			/*if (ft_analyse_input(buff, &g_env) == 1) // clean out
-				return (finish_minishell(&buff, &g_env));*/
+			if (ft_analyse_input(buff, &g_env) == 1) // clean out
+			  return (finish_minishell(&buff, &g_env));
 			free(buff);
 		}
 	}

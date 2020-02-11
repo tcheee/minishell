@@ -42,7 +42,7 @@ static char	**realloc_env(char ***env, int n, char *tmp, int k)
 		return (NULL);
 	i = 0;
 	j = 0;
-	while ((*env)[i] && (*env)[j] && i < n)
+	while ((*env)[i] != NULL && (*env)[j] && i < n)
 	{
 		if (i == k)
 		{	
@@ -56,6 +56,7 @@ static char	**realloc_env(char ***env, int n, char *tmp, int k)
 	if (tmp != NULL)
 	{
 		new[i] = ft_strdup(tmp);
+		tmp[ft_strlen(tmp)] = '\0';
 		i++;
 	}
 	new[i] = NULL;
