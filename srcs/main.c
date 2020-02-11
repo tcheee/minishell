@@ -17,11 +17,11 @@ void ft_mem_realloc(char **buff, int s, int i)
 	char *tmp;
 
 	s *= 2;
-	if (!(tmp = malloc(sizeof(char *) * s))) // to free
+	if (!(tmp = malloc(sizeof(char *) * s)))
 		return;
 	ft_memcpy(tmp, *buff, i);
 	free(*buff);
-	if (!(*buff = malloc(sizeof(char *) * s))) // to free
+	if (!(*buff = malloc(sizeof(char *) * s)))
 		return;
 	ft_memcpy(*buff, tmp, i);
 	free(tmp);
