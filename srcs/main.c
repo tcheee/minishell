@@ -6,22 +6,22 @@
 /*   By: tcherret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 18:45:39 by tcherret          #+#    #+#             */
-/*   Updated: 2020/02/15 16:23:23 by tcherret         ###   ########.fr       */
+/*   Updated: 2020/02/15 16:40:58 by tcherret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void			ft_mem_realloc(char **buff, int s, int i)
+void			ft_mem_realloc(char **buff, int *s, int i)
 {
 	char *tmp;
 
-	s *= 2;
-	if (!(tmp = malloc(sizeof(char *) * s)))
+	*s *= 2;
+	if (!(tmp = malloc(sizeof(char *) * *s)))
 		return ;
 	ft_memcpy(tmp, *buff, i);
 	free(*buff);
-	if (!(*buff = malloc(sizeof(char *) * s)))
+	if (!(*buff = malloc(sizeof(char *) * *s)))
 		return ;
 	ft_memcpy(*buff, tmp, i);
 	free(tmp);
@@ -48,8 +48,8 @@ void			ft_get_input(char **buff)
 		else
 			(*buff)[i] = l;
 		i++;
-		if (i >= SIZE)
-			ft_mem_realloc(buff, s, i);
+		if (i >= s)
+			ft_mem_realloc(buff, &s, i);
 	}
 }
 
