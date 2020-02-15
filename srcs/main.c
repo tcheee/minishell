@@ -6,7 +6,7 @@
 /*   By: tcherret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 18:45:39 by tcherret          #+#    #+#             */
-/*   Updated: 2020/02/15 15:48:44 by tcherret         ###   ########.fr       */
+/*   Updated: 2020/02/15 16:23:23 by tcherret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void			ft_get_input(char **buff)
 
 	i = 0;
 	s = SIZE;
-	while (42)
+	while (1)
 	{
 		if (read(0, &l, 1) == -1)
 			return ;

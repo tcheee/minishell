@@ -6,7 +6,7 @@
 /*   By: tcherret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 18:46:30 by tcherret          #+#    #+#             */
-/*   Updated: 2020/02/15 15:30:46 by tcherret         ###   ########.fr       */
+/*   Updated: 2020/02/15 16:20:20 by tcherret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char			*ft_capitalize(char *str)
 	return (str);
 }
 
-static int		ft_echo_env(char *word, char **words, char ***env)
+static int		ft_echo_env(char **words, char ***env)
 {
 	char *tmp;
 
@@ -68,7 +68,7 @@ int				ft_echo(char *word, char *buff, char **words, char ***env)
 
 	c = 0;
 	if (words[1] && words[1][0] == '$')
-		return (ft_echo_env(word, words, env));
+		return (ft_echo_env(words, env));
 	else
 	{
 		j = ft_strlen(word);

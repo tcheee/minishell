@@ -9,7 +9,7 @@
 # include <dirent.h>
 # include <sys/types.h>
 
-# define SIZE 4
+# define SIZE 32
 # define QUIT_SHELL "exit\n"
 
 # define COLOR_RESET	"\033[0m"
