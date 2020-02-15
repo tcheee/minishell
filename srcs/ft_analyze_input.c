@@ -6,7 +6,7 @@
 /*   By: tcherret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 18:46:05 by tcherret          #+#    #+#             */
-/*   Updated: 2020/02/08 19:37:21 by tcherret         ###   ########.fr       */
+/*   Updated: 2020/02/15 15:51:27 by tcherret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int				check_builtin(char *word, char **words, char *buff, char ***env)
 		if (ft_env(env, words) == 0)
 			return (0);
 	}
-	else if (ft_strcmp(word, "setenv") == 0) // error si name contient un "="
+	else if (ft_strcmp(word, "setenv") == 0)
 	{
 		if (ft_setenv(words, env) == 0)
 			return (0);
@@ -29,7 +29,7 @@ int				check_builtin(char *word, char **words, char *buff, char ***env)
 		if (ft_unsetenv(words, env) == 0)
 			return (0);
 	}
-	else if (ft_strcmp (word, "cd") == 0)
+	else if (ft_strcmp(word, "cd") == 0)
 	{
 		if (ft_chdir(words, env) == 0)
 			return (0);
@@ -67,8 +67,8 @@ static int		check_quote(char *buff)
 
 int				ft_analyse_input(char *buff, char ***env)
 {
-	char **words;
-	int i;
+	char	**words;
+	int		i;
 
 	if (check_quote(buff) == -1)
 		return (-1);
@@ -81,7 +81,7 @@ int				ft_analyse_input(char *buff, char ***env)
 		return (0);
 	else if (buff[i - 1] == '\n' && ft_strlen(buff) > 1)
 		buff[i - 1] = '\0';
-	words = ft_strsplit(buff, ' '); // to free
+	words = ft_strsplit(buff, ' ');
 	exec_command(words[0], words, buff, env);
 	free_tab(&words);
 	return (0);

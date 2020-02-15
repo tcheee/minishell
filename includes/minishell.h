@@ -36,5 +36,6 @@ int		ft_setenv(char **words, char ***env);
 int		ft_unsetenv(char **words, char ***env);
 int		ft_existing_env(char *str, char ***env);
 int		free_tab(char ***env);
+char	**realloc_env(char ***env, int n, char *tmp, int k);
 
 #endif

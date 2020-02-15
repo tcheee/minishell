@@ -6,7 +6,7 @@
 /*   By: tcherret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 18:46:17 by tcherret          #+#    #+#             */
-/*   Updated: 2020/02/08 19:42:46 by tcherret         ###   ########.fr       */
+/*   Updated: 2020/02/15 15:51:43 by tcherret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int		change_dir(char **words, char ***env, int b)
 	return (0);
 }
 
-int				ft_chdir(char **words, char ***env) // voir si plus propre pour tmp?
+int				ft_chdir(char **words, char ***env)
 {
 	int i;
 	int b;

@@ -6,7 +6,7 @@
 /*   By: tcherret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 18:46:24 by tcherret          #+#    #+#             */
-/*   Updated: 2020/02/08 20:14:20 by tcherret         ###   ########.fr       */
+/*   Updated: 2020/02/15 15:46:52 by tcherret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,76 +34,6 @@ int				ft_env(char ***env, char **words)
 	return (0);
 }
 
-int		ft_existing_env(char *str, char ***env)
-{
-	char	*var;
-	int		k;
-	int		j;
-
-	if (!(var = (char*)malloc(sizeof(char*) * (2048)))) // to free
-		return (-1);
-	k = 0;
-	while((*env)[k] != NULL)
-	{
-		j = 0;
-		while ((*env)[k][j] != '\0' && (*env)[k][j] != '=')
-		{
-			var[j] = (*env)[k][j];
-			j++;
-		}
-		var[j] = '\0';
-		j++;
-		if (ft_strcmp(str, var) == 0)
-		{
-			free(var);
-			return (k);
-		}
-		k++;
-	}
-	free(var);
-	return (-4);
-}
-
-
-int			ft_read_env(char *str, char **tmp, char ***env)
-{
-	char *var;
-	int k;
-	int j;
-	int n;
-
-	k = 0;
-	if (!(var = (char*)malloc(sizeof(char*) * (2000)))) // to free
-		return (-1);
-	while((*env)[k] != NULL)
-	{
-		j = 0;
-		n = 0;
-		while ((*env)[k][j] != '\0' && (*env)[k][j] != '=')
-		{
-			var[j] = (*env)[k][j];
-			j++;
-		}
-		var[j] = '\0';
-		j++;
-		if (ft_strcmp(ft_capitalize(str), ft_capitalize(var)) == 0)
-		{
-			while ((*env)[k][j] != '\0')
-			{
-				(*tmp)[n] = (*env)[k][j];
-				j++;
-				n++;
-			}
-			(*tmp)[n] = '\0';
-			free(var);
-			return (0);
-		}
-		k++;
-	}
-	free(var);
-	return (-1);
-}
-
 int				ft_create_env(char **envp, char ***g_env)
 {
 	int i;
@@ -111,12 +41,13 @@ int				ft_create_env(char **envp, char ***g_env)
 	i = 0;
 	while (envp[i] != NULL)
 		i++;
-	if (!(*g_env = (char**)malloc(sizeof(char**) * (i + 1)))) // to free
+	if (!(*g_env = (char**)malloc(sizeof(char**) * (i + 1))))
 		return (-1);
 	i = 0;
 	while (envp[i] != NULL)
 	{
-		if(!((*g_env)[i] = (char*)malloc(sizeof(char*) * (ft_strlen(envp[i]) + 1)))) // to free
+		if (!((*g_env)[i] = (char*)malloc(sizeof(char*)
+						* (ft_strlen(envp[i]) + 1))))
 			return (-1);
 		ft_memcpy((*g_env)[i], envp[i], ft_strlen(envp[i]) + 1);
 		i++;
@@ -138,4 +69,38 @@ int				free_tab(char ***env)
 	free((*env)[i]);
 	free(*env);
 	return (0);
+}
+
+static void		create_new_elem(char ***new, char *tmp, int *i)
+{
+	(*new)[*i] = ft_strdup(tmp);
+	(*i)++;
+}
+
+char			**realloc_env(char ***env, int n, char *tmp, int k)
+{
+	char	**new;
+	int		i;
+	int		j;
+
+	if (!(new = (char**)malloc(sizeof(char**) * (n + 1))))
+		return (NULL);
+	i = 0;
+	j = 0;
+	while ((*env)[i] != NULL && (*env)[j] && i < n)
+	{
+		if (i == k)
+		{
+			free((*env)[i]);
+			j++;
+		}
+		new[i] = (*env)[j];
+		i++;
+		j++;
+	}
+	if (tmp != NULL)
+		create_new_elem(&new, tmp, &i);
+	new[i] = NULL;
+	free(*env);
+	return (new);
 }

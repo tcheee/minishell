@@ -6,13 +6,13 @@
 /*   By: tcherret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 18:46:35 by tcherret          #+#    #+#             */
-/*   Updated: 2020/02/08 18:46:36 by tcherret         ###   ########.fr       */
+/*   Updated: 2020/02/15 15:56:00 by tcherret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static int		ft_check_format(char **words, int b)
+static int	ft_check_format(char **words, int b)
 {
 	int i;
 
@@ -30,38 +30,6 @@ static int		ft_check_format(char **words, int b)
 		return (-1);
 	}
 	return (0);
-}
-
-static char	**realloc_env(char ***env, int n, char *tmp, int k)
-{
-	char	**new;
-	int		i;
-	int		j;
-
-	if (!(new = (char**)malloc(sizeof(char**) * (n + 1)))) // to free
-		return (NULL);
-	i = 0;
-	j = 0;
-	while ((*env)[i] != NULL && (*env)[j] && i < n)
-	{
-		if (i == k)
-		{	
-			free((*env)[i]);
-			j++;
-		}
-		new[i] = (*env)[j];
-		i++;
-		j++;
-	}
-	if (tmp != NULL)
-	{
-		new[i] = ft_strdup(tmp);
-		tmp[ft_strlen(tmp)] = '\0';
-		i++;
-	}
-	new[i] = NULL;
-	free(*env);
-	return (new);
 }
 
 int			ft_modify_env(char ***env, char *new_env, int k)
@@ -97,7 +65,7 @@ int			ft_setenv(char **words, char ***env)
 		ft_modify_env(env, tmp2, -4);
 	free(tmp1);
 	free(tmp2);
-	return(0);
+	return (0);
 }
 
 int			ft_unsetenv(char **words, char ***env)

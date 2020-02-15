@@ -6,7 +6,7 @@
 /*   By: tcherret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 19:34:03 by tcherret          #+#    #+#             */
-/*   Updated: 2020/02/08 19:35:45 by tcherret         ###   ########.fr       */
+/*   Updated: 2020/02/15 15:34:39 by tcherret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,26 @@ static int		good_path_found(char ***tab, char **cmd, char **com, char *tmp)
 	return (0);
 }
 
-static int		set_path(char *word, char **command, char ***env) // need to free ce path
+static int		bug_malloc(char **tmp)
 {
-	char *tmp;
-	char *com;
-	char *temp;
-	char **split;
-	int i;
+	free(*tmp);
+	return (-1);
+}
+
+static int		set_path(char *word, char **command, char ***env)
+{
+	char	*tmp;
+	char	*com;
+	char	*temp;
+	char	**split;
+	int		i;
 
 	i = 0;
 	if (!(tmp = malloc(sizeof(char*) * 2048)))
 		return (-1);
 	if (ft_read_env("PATH", &tmp, env) == -1)
-	{
-		free(tmp);
-		return (-1);
-	}
-	split = ft_strsplit(tmp, ':'); // to free
+		return (bug_malloc(&tmp));
+	split = ft_strsplit(tmp, ':');
 	free(tmp);
 	com = ft_strcat("/", word);
 	while (split[i] != NULL)
@@ -50,12 +53,6 @@ static int		set_path(char *word, char **command, char ***env) // need to free ce
 	free_tab(&split);
 	free(com);
 	return (-1);
-}
-
-static int		no_fork()
-{
-		ft_putstr("Error: fork did not work.\n");
-		return (-1);
 }
 
 static int		wait_status(pid_t pid, char **command)
@@ -78,7 +75,7 @@ static int		wait_status(pid_t pid, char **command)
 int				exec_command(char *word, char **words, char *buff, char ***env)
 {
 	pid_t	pid;
-	char *command;
+	char	*command;
 
 	command = NULL;
 	if (check_builtin(word, words, buff, env) == 0)
@@ -95,8 +92,9 @@ int				exec_command(char *word, char **words, char *buff, char ***env)
 		}
 	}
 	else if (pid < 0)
-		return (no_fork());
+	{
+		ft_putstr("Error: fork did not work.\n");
+		return (-1);
+	}
 	return (wait_status(pid, &command));
 }
-
-
