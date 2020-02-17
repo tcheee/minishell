@@ -81,7 +81,7 @@ int				ft_analyse_input(char *buff, char ***env)
 		return (0);
 	else if (buff[i - 1] == '\n' && ft_strlen(buff) > 1)
 		buff[i - 1] = '\0';
-	words = ft_strsplit(buff, ' ');
+	words = ft_space_split(buff);
 	exec_command(words[0], words, buff, env);
 	free_tab(&words);
 	return (0);

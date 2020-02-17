@@ -100,5 +100,6 @@ void			ft_lstclearifdata(t_list **lst, void *data);
 int				ft_lstlen(t_list *lst);
 void			ft_lstclear(t_list **lst);
 char			*ft_strjoin_free(char *s1, char const *s2);
+char			**ft_space_split(char const *s);
 
 #endif

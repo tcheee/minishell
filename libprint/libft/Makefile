@@ -94,6 +94,7 @@ SRC = ft_atoi.c \
 	  get_next_line.c \
 	  ft_realloc \
 	  ft_strlen_nofault \
+	  ft_space_split \
 
 OBJ = $(SRC:.c=.o)
 
